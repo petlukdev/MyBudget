@@ -5,8 +5,20 @@ import { useState } from "react";
 import { Category } from "../types/Category";
 import type { Transaction } from "../types/Transaction";
 
-function TransactionHistory({ transactions }: { transactions: Transaction[] }) {
+function TransactionHistory({ transactions, setTransactions }: { transactions: Transaction[], setTransactions: React.Dispatch<React.SetStateAction<Transaction[]>> }) {
     const [selectedItem, setSelectedItem] = useState<Transaction | null>(null);
+
+    const handleCloseModal = () => {
+        setSelectedItem(null);
+    }
+
+    const handleUpdateTransaction = (updatedTransaction: Transaction) => {
+        setTransactions(prev => prev.map(t => t.id === updatedTransaction.id ? updatedTransaction : t));
+    }
+
+    const handleDeleteTransaction = (transaction: Transaction) => {
+        setTransactions(prev => prev.filter(t => t.id !== transaction.id));
+    }
     
     return (
         <div className="bg-white shadow-lg rounded-lg p-4">
@@ -25,7 +37,7 @@ function TransactionHistory({ transactions }: { transactions: Transaction[] }) {
             </div>
             <hr className="my-4 border-gray-300"/>
             <div>
-                <ul>
+                <ul className="gap-2 flex flex-col">
                     {transactions.map((transaction) => (
                         <TransactionHistoryItem 
                         key={transaction.id} 
@@ -38,7 +50,9 @@ function TransactionHistory({ transactions }: { transactions: Transaction[] }) {
             {selectedItem && (
                 <TransactionDetailsModal 
                 transaction={selectedItem}
-                onClose={() => setSelectedItem(null)}
+                onClose={handleCloseModal}
+                onUpdate={handleUpdateTransaction}
+                onDelete={handleDeleteTransaction}
                />
             )}
         </div>
