@@ -1,9 +1,13 @@
 import TransactionHistoryItem from "./TransactionHistoryItem";
+import TransactionDetailsModal from "./TransactionDetailsModal";
 
+import { useState } from "react";
 import { Category } from "../types/Category";
 import type { Transaction } from "../types/Transaction";
 
 function TransactionHistory({ transactions }: { transactions: Transaction[] }) {
+    const [selectedItem, setSelectedItem] = useState<Transaction | null>(null);
+    
     return (
         <div className="bg-white shadow-lg rounded-lg p-4">
             <h2 className="text-xl font-bold mb-4">Transaction History</h2>
@@ -23,10 +27,20 @@ function TransactionHistory({ transactions }: { transactions: Transaction[] }) {
             <div>
                 <ul>
                     {transactions.map((transaction) => (
-                        <TransactionHistoryItem key={transaction.id} transaction={transaction} />
+                        <TransactionHistoryItem 
+                        key={transaction.id} 
+                        transaction={transaction} 
+                        onClick={() => setSelectedItem(transaction)}
+                        />
                     ))}
                 </ul>
             </div>
+            {selectedItem && (
+                <TransactionDetailsModal 
+                transaction={selectedItem}
+                onClose={() => setSelectedItem(null)}
+               />
+            )}
         </div>
     );
 }

@@ -23,9 +23,9 @@ const categoryIcons: Record<string, string> = {
     [Category.OTHER]: otherLogo,
 };
 
-function TransactionHistoryItem({ transaction }: { transaction: Transaction }) {
+function TransactionHistoryItem({ transaction, onClick }: { transaction: Transaction, onClick: () => void }) {
     return (
-        <li className="flex items-center gap-3">
+        <li className="flex items-center gap-3" onClick={onClick}>
             <img src={categoryIcons[transaction.category]} alt={transaction.category} 
             className="w-11 h-11 p-1 bg-gray-200 rounded-md" />
             <div className="text-sm min-w-0">
