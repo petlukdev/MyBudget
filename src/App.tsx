@@ -27,7 +27,7 @@ function App() {
   return (
     <>
       <Header />
-      <div className="flex flex-col bg-gray-100 min-h-screen p-5">
+      <div className="flex flex-col gap-3 bg-gray-100 min-h-screen p-5">
         <DashboardCard title='Total Balance' value={1000} />
         <DashboardCard title='Income' value={-50} />
         <TransactionHistory transactions={transactions} setTransactions={setTransactions}/>
