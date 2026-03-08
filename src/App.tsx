@@ -4,6 +4,7 @@ import type { Transaction } from './types/Transaction'
 import Header from './components/Header'
 import DashboardCard from './components/DashboardCard'
 import TransactionHistory from './components/TransactionHistory'
+import AddTransactionForm from './components/AddTransactionForm'
 
 function App() {
   const [count, setCount] = useState(0)
