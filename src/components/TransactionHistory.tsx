@@ -1,5 +1,6 @@
+import Modal from "./Modal";
 import TransactionHistoryItem from "./TransactionHistoryItem";
-import TransactionDetailsModal from "./TransactionDetailsModal";
+import TransactionDetails from "./TransactionDetails";
 
 import { useState } from "react";
 import { Category } from "../types/Category";
@@ -48,12 +49,15 @@ function TransactionHistory({ transactions, setTransactions }: { transactions: T
                 </ul>
             </div>
             {selectedItem && (
-                <TransactionDetailsModal 
-                transaction={selectedItem}
-                onClose={handleCloseModal}
-                onUpdate={handleUpdateTransaction}
-                onDelete={handleDeleteTransaction}
-               />
+                <Modal 
+                children={
+                    <TransactionDetails 
+                    transaction={selectedItem}
+                    onUpdate={handleUpdateTransaction}
+                    onDelete={handleDeleteTransaction}
+                    />
+                }
+                onClose={handleCloseModal}/>
             )}
         </div>
     );
