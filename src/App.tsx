@@ -1,13 +1,16 @@
 import { useState } from 'react'
 import type { Transaction } from './types/Transaction'
 
+import plusLogo from './assets/plus.svg'
+
+import Modal from './components/Modal'
 import Header from './components/Header'
 import DashboardCard from './components/DashboardCard'
 import TransactionHistory from './components/TransactionHistory'
 import AddTransactionForm from './components/AddTransactionForm'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [isFormOpen, setIsFormOpen] = useState(false);
   const [transactions, setTransactions] = useState<Transaction[]>([
     {
       id: '1',
@@ -25,6 +28,11 @@ function App() {
     }
   ]);
 
+  const addTransaction = (transaction: Transaction) => {
+    setTransactions(prev => [transaction, ...prev]);
+    setIsFormOpen(false);
+  }
+
   return (
     <>
       <Header />
@@ -32,7 +40,16 @@ function App() {
         <DashboardCard title='Total Balance' value={1000} />
         <DashboardCard title='Income' value={-50} />
         <TransactionHistory transactions={transactions} setTransactions={setTransactions}/>
+        <button className="fixed bottom-5 right-5 p-3 bg-blue-400 rounded-xl shadow-lg"
+        onClick={() => setIsFormOpen(true)}>
+          <img src={plusLogo} alt="Add Transaction" className="w-8 h-8"/>
+        </button>
       </div>
+      {isFormOpen &&
+        <Modal onClose={() => setIsFormOpen(false)}>
+          <AddTransactionForm addTransaction={addTransaction}/>
+        </Modal>
+      }
     </>
   )
 }

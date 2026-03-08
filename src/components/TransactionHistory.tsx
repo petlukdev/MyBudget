@@ -13,11 +13,11 @@ function TransactionHistory({ transactions, setTransactions }: { transactions: T
         setSelectedItem(null);
     }
 
-    const handleUpdateTransaction = (updatedTransaction: Transaction) => {
-        setTransactions(prev => prev.map(t => t.id === updatedTransaction.id ? updatedTransaction : t));
+    const handleUpdate = (update: Transaction) => {
+        setTransactions(prev => prev.map(t => t.id === update.id ? update : t));
     }
 
-    const handleDeleteTransaction = (transaction: Transaction) => {
+    const handleDelete = (transaction: Transaction) => {
         setTransactions(prev => prev.filter(t => t.id !== transaction.id));
     }
     
@@ -49,15 +49,13 @@ function TransactionHistory({ transactions, setTransactions }: { transactions: T
                 </ul>
             </div>
             {selectedItem && (
-                <Modal 
-                children={
+                <Modal onClose={handleCloseModal}>
                     <TransactionDetails 
-                    transaction={selectedItem}
-                    onUpdate={handleUpdateTransaction}
-                    onDelete={handleDeleteTransaction}
+                        transaction={selectedItem}
+                        onUpdate={handleUpdate}
+                        onDelete={handleDelete}
                     />
-                }
-                onClose={handleCloseModal}/>
+                </Modal>
             )}
         </div>
     );
