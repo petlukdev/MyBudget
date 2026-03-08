@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import type { Transaction } from './types/Transaction'
 
 import plusLogo from './assets/plus.svg'
@@ -28,6 +28,13 @@ function App() {
     }
   ]);
 
+  const stats = useMemo(() => {
+    const totalBalance = transactions.reduce((sum, t) => sum + t.amount, 0);
+    const income = transactions.filter(t => t.amount > 0).reduce((sum, t) => sum + t.amount, 0);
+    const expenses = transactions.filter(t => t.amount < 0).reduce((sum, t) => sum + t.amount, 0);
+    return { totalBalance, income, expenses };
+  }, [transactions]);
+
   const addTransaction = (transaction: Transaction) => {
     setTransactions(prev => [transaction, ...prev]);
     setIsFormOpen(false);
@@ -37,8 +44,9 @@ function App() {
     <>
       <Header />
       <div className="flex flex-col gap-3 bg-gray-100 min-h-screen p-5">
-        <DashboardCard title='Total Balance' value={1000} />
-        <DashboardCard title='Income' value={-50} />
+        <DashboardCard title='Total Balance' value={stats.totalBalance} />
+        <DashboardCard title='Income' value={stats.income} />
+        <DashboardCard title='Expenses' value={stats.expenses} />
         <TransactionHistory transactions={transactions} setTransactions={setTransactions}/>
         <button className="fixed bottom-5 right-5 p-3 bg-blue-400 rounded-xl shadow-lg"
         onClick={() => setIsFormOpen(true)}>
