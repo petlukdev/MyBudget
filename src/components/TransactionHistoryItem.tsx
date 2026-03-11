@@ -34,7 +34,7 @@ function TransactionHistoryItem({ transaction, onClick }: { transaction: Transac
             </div>
             <p className={`ml-auto font-bold text-nowrap
                 ${transaction.amount < 0 ? 'text-red-500' : 'text-green-500'}`}>
-                    {transaction.amount} CZK
+                    {transaction.amount.toLocaleString()} CZK
             </p>
         </li>
     );
