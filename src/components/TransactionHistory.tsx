@@ -9,6 +9,8 @@ import type { Transaction } from "../types/Transaction";
 function TransactionHistory({ transactions, setTransactions }: { transactions: Transaction[], setTransactions: React.Dispatch<React.SetStateAction<Transaction[]>> }) {
     const [selectedItem, setSelectedItem] = useState<Transaction | null>(null);
 
+    const [filter, setFilter] = useState('');
+    
     const handleCloseModal = () => {
         setSelectedItem(null);
     }
@@ -27,7 +29,8 @@ function TransactionHistory({ transactions, setTransactions }: { transactions: T
             <div className="flex items-center gap-4 mb-4">
                 <p className="text-nowrap">Filter by category:</p>
                 <select className="bg-white border border-gray-300 rounded w-full p-1 
-                focus:outline-none open:ring-2 open:ring-black">
+                focus:outline-none open:ring-2 open:ring-black"
+                onChange={(e) => setFilter(e.target.value)}>
                     <option value="">All Categories</option>
                     {Object.values(Category).map((category) => (
                         <option value={category}>
@@ -39,12 +42,13 @@ function TransactionHistory({ transactions, setTransactions }: { transactions: T
             <hr className="my-4 border-gray-300"/>
             <div>
                 <ul className="gap-2 flex flex-col">
-                    {transactions.map((transaction) => (
-                        <TransactionHistoryItem 
-                        key={transaction.id} 
-                        transaction={transaction} 
-                        onClick={() => setSelectedItem(transaction)}
-                        />
+                    {transactions.filter(t => filter === '' || t.category === filter)
+                        .map((transaction) => (
+                            <TransactionHistoryItem 
+                            key={transaction.id} 
+                            transaction={transaction} 
+                            onClick={() => setSelectedItem(transaction)}
+                            />
                     ))}
                 </ul>
             </div>
