@@ -3,10 +3,10 @@ import type { Transaction } from './types/Transaction'
 
 import Modal from './components/Modal'
 import Header from './components/Header'
-import DashboardCard from './components/DashboardCard'
 import TransactionHistory from './components/TransactionHistory'
 import AddTransactionForm from './components/AddTransactionForm'
 import AddTransactionButton from './components/AddTransactionButton'
+import Dashboard from './components/Dashboard'
 
 function App() {
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -42,13 +42,11 @@ function App() {
   return (
     <>
       <Header />
-      <div className="flex flex-col gap-3 bg-gray-100 min-h-screen p-5">
-        <DashboardCard title='Total Balance' value={stats.totalBalance} />
-        <DashboardCard title='Income' value={stats.income} />
-        <DashboardCard title='Expenses' value={stats.expenses} />
+      <main className="flex flex-col gap-3 bg-gray-100 min-h-screen p-5">
+        <Dashboard stats={stats} />
         <TransactionHistory transactions={transactions} setTransactions={setTransactions}/>
         <AddTransactionButton onClick={() => setIsFormOpen(true)} />
-      </div>
+      </main>
       {isFormOpen &&
         <Modal onClose={() => setIsFormOpen(false)}>
           <AddTransactionForm addTransaction={addTransaction}/>
