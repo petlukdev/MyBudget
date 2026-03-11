@@ -1,13 +1,12 @@
 import { useMemo, useState } from 'react'
 import type { Transaction } from './types/Transaction'
 
-import plusLogo from './assets/plus.svg'
-
 import Modal from './components/Modal'
 import Header from './components/Header'
 import DashboardCard from './components/DashboardCard'
 import TransactionHistory from './components/TransactionHistory'
 import AddTransactionForm from './components/AddTransactionForm'
+import AddTransactionButton from './components/AddTransactionButton'
 
 function App() {
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -48,10 +47,7 @@ function App() {
         <DashboardCard title='Income' value={stats.income} />
         <DashboardCard title='Expenses' value={stats.expenses} />
         <TransactionHistory transactions={transactions} setTransactions={setTransactions}/>
-        <button className="fixed bottom-5 right-5 p-3 bg-blue-400 rounded-xl shadow-lg"
-        onClick={() => setIsFormOpen(true)}>
-          <img src={plusLogo} alt="Add Transaction" className="w-8 h-8"/>
-        </button>
+        <AddTransactionButton onClick={() => setIsFormOpen(true)} />
       </div>
       {isFormOpen &&
         <Modal onClose={() => setIsFormOpen(false)}>
