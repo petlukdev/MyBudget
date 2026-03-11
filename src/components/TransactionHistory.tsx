@@ -1,15 +1,19 @@
 import Modal from "./Modal";
-import TransactionHistoryItem from "./TransactionHistoryItem";
+import LazyDummy from "./LazyDummy";
 import TransactionDetails from "./TransactionDetails";
 
-import { useState } from "react";
+import { useState, lazy, Suspense } from "react";
 import { Category } from "../types/Category";
 import type { Transaction } from "../types/Transaction";
+
+const TransactionHistoryItem = lazy(() => import('./TransactionHistoryItem'));
 
 function TransactionHistory({ transactions, setTransactions }: { transactions: Transaction[], setTransactions: React.Dispatch<React.SetStateAction<Transaction[]>> }) {
     const [selectedItem, setSelectedItem] = useState<Transaction | null>(null);
 
     const [filter, setFilter] = useState('');
+
+    const filteredTransactions = filter === '' ? transactions : transactions.filter(t => t.category === filter);
     
     const handleCloseModal = () => {
         setSelectedItem(null);
@@ -42,13 +46,14 @@ function TransactionHistory({ transactions, setTransactions }: { transactions: T
             <hr className="my-4 border-gray-300"/>
             <div>
                 <ul className="gap-2 flex flex-col">
-                    {transactions.filter(t => filter === '' || t.category === filter)
-                        .map((transaction) => (
-                            <TransactionHistoryItem 
-                            key={transaction.id} 
-                            transaction={transaction} 
-                            onClick={() => setSelectedItem(transaction)}
-                            />
+                    {filteredTransactions.map((transaction) => (
+                            <Suspense fallback={<LazyDummy />}>
+                                <TransactionHistoryItem 
+                                key={transaction.id} 
+                                transaction={transaction} 
+                                onClick={() => setSelectedItem(transaction)}
+                                />
+                            </Suspense>
                     ))}
                 </ul>
             </div>
