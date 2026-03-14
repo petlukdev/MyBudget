@@ -37,7 +37,7 @@ function TransactionHistory({ transactions, setTransactions }: { transactions: T
                 onChange={(e) => setFilter(e.target.value)}>
                     <option value="">All Categories</option>
                     {Object.values(Category).map((category) => (
-                        <option value={category}>
+                        <option key={category} value={category}>
                             {category}
                         </option>
                     ))}
@@ -47,9 +47,8 @@ function TransactionHistory({ transactions, setTransactions }: { transactions: T
             <div>
                 <ul className="gap-2 flex flex-col">
                     {filteredTransactions.map((transaction) => (
-                            <Suspense fallback={<LazyDummy />}>
+                            <Suspense key={transaction.id} fallback={<LazyDummy />}>
                                 <TransactionHistoryItem 
-                                key={transaction.id} 
                                 transaction={transaction} 
                                 onClick={() => setSelectedItem(transaction)}
                                 />

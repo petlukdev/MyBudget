@@ -52,7 +52,7 @@ function TransactionDetails({ transaction, onUpdate, onDelete, onClose }: { tran
                     <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
                     <select name="category" value={formData.category} onChange={handleChange} className="w-full p-2 border border-gray-300 rounded">
                         {Object.values(Category).map((category) => (
-                            <option value={category}>
+                            <option key={category} value={category}>
                                 {category}
                             </option>
                         ))}

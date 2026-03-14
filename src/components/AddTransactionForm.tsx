@@ -39,7 +39,7 @@ function AddTransactionForm({ addTransaction }: { addTransaction: (transaction: 
                 <label className="block text-sm font-medium text-gray-700">Category</label>
                 <select required name="category" className="w-full p-2 border border-gray-300 rounded">
                     {Object.values(Category).map((category) => (
-                        <option value={category}>{category}</option>
+                        <option key={category} value={category}>{category}</option>
                     ))}
                 </select>
             </div>
