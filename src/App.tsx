@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { CurrencyProvider } from './contexts/CurrencyContext'
 
 import type { Transaction } from './types/Transaction'
@@ -12,22 +12,14 @@ import Dashboard from './components/Dashboard'
 
 function App() {
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const [transactions, setTransactions] = useState<Transaction[]>([
-    {
-      id: '1',
-      title: 'Grocery Shopping',
-      amount: 150,
-      date: new Date('2024-06-01'),
-      category: 'Shopping',
-    },
-    {
-      id: '2',
-      title: 'Salary',
-      amount: 2000,
-      date: new Date('2024-06-01'),
-      category: 'Food',
-    }
-  ]);
+  const [transactions, setTransactions] = useState<Transaction[]>(() => {
+    const stored = localStorage.getItem('transactions');
+    return stored ? JSON.parse(stored) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('transactions', JSON.stringify(transactions));
+  }, [transactions]);
 
   const stats = useMemo(() => {
     const totalBalance = transactions.reduce((sum, t) => sum + t.amount, 0);
