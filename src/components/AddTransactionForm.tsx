@@ -1,12 +1,10 @@
-import { useContext } from "react";
 import { Category } from "../types/Category";
-import { BaseCurrencyContext } from "../contexts/CurrencyContext";
+import { useCurrency } from "../hooks/useCurrency";
 
-import type { Currency } from "../types/Currency";
 import type { Transaction } from "../types/Transaction";
 
 function AddTransactionForm({ addTransaction }: { addTransaction: (transaction: Transaction) => void }) {
-    const currency : Currency = useContext(BaseCurrencyContext);
+    const { base } = useCurrency();
     
     const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -34,7 +32,7 @@ function AddTransactionForm({ addTransaction }: { addTransaction: (transaction: 
                 <label className="block text-sm font-medium text-gray-700">Amount (positive/negative)</label>
                 <div className="flex items-center gap-5">
                     <input required name="amount" type="number" className="w-full p-2 border border-gray-300 rounded"/>
-                    <label>{currency}</label>
+                    <label>{base}</label>
                 </div>
             </div>
             <div>

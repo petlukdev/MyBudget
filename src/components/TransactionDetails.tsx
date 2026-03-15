@@ -1,16 +1,15 @@
 import penLogo from "../assets/pen.svg";
 import trashLogo from "../assets/trash.svg";
 
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import { Category } from "../types/Category";
-import { BaseCurrencyContext } from "../contexts/CurrencyContext";
+import { useCurrency } from "../hooks/useCurrency";
 
-import type { Currency } from "../types/Currency";
 import type { Transaction } from "../types/Transaction";
 
 function TransactionDetails({ transaction, onUpdate, onDelete, onClose }: { transaction: Transaction, onUpdate: (updatedTransaction: Transaction) => void, onDelete: (transaction: Transaction) => void, onClose?: () => void }) {
     const [formData, setFormData] = useState(transaction);
-    const currency : Currency = useContext(BaseCurrencyContext);
+    const { base } = useCurrency();
     
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
@@ -49,7 +48,7 @@ function TransactionDetails({ transaction, onUpdate, onDelete, onClose }: { tran
                     <div className="flex items-center gap-5">
                         <input type="number" name="amount" step="10" value={formData.amount} onChange={handleChange} 
                             className="w-full p-2 border border-gray-300 rounded"/>
-                        <label>{currency}</label>
+                        <label>{base}</label>
                     </div>
                 </div>
                 <div className="mb-4">

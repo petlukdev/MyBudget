@@ -34,10 +34,6 @@ export class CurrencyConverter {
         }
     }
 
-    public async initRates() {
-        await this.getRates();
-    }
-
     public async getRates() {
         try {
             const response = await fetch(`https://api.frankfurter.dev/v1/latest?base=${this.base}&symbols=EUR,USD,CZK`);

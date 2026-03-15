@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
-import { BaseCurrencyProvider } from './contexts/CurrencyContext'
+import { CurrencyProvider } from './contexts/CurrencyContext'
+
 import type { Transaction } from './types/Transaction'
 
 import Modal from './components/Modal'
@@ -42,7 +43,7 @@ function App() {
 
   return (
     <>
-      <BaseCurrencyProvider>
+      <CurrencyProvider>
         <Header/>
         <main className="flex flex-col gap-3 bg-gray-100 min-h-screen p-5">
           <Dashboard stats={stats}/>
@@ -54,7 +55,7 @@ function App() {
             <AddTransactionForm addTransaction={addTransaction}/>
           </Modal>
         }
-      </BaseCurrencyProvider>
+      </CurrencyProvider>
     </>
   )
 }
