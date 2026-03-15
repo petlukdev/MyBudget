@@ -1,5 +1,9 @@
+import { useContext } from "react";
+import { BaseCurrencyContext } from "../contexts/CurrencyContext";
+import type { Currency } from "../types/Currency";
+
 function DashboardCard({ title, value = 0 }: { title: string; value: number }) {
-    const currency : string = 'CZK';
+    const currency : Currency = useContext(BaseCurrencyContext);
     
     return (
         <div className="flex flex-col justify-center items-center 

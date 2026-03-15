@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { CurrencyConverter } from './utils/CurrencyConverter'
+import { BaseCurrencyProvider } from './contexts/CurrencyContext'
 import type { Transaction } from './types/Transaction'
 
 import Modal from './components/Modal'
@@ -28,8 +28,6 @@ function App() {
     }
   ]);
 
-  const converter: CurrencyConverter = useMemo(() => new CurrencyConverter(), []);
-
   const stats = useMemo(() => {
     const totalBalance = transactions.reduce((sum, t) => sum + t.amount, 0);
     const income = transactions.filter(t => t.amount > 0).reduce((sum, t) => sum + t.amount, 0);
@@ -44,17 +42,19 @@ function App() {
 
   return (
     <>
-      <Header defaultCurrency={converter.getBase()}/>
-      <main className="flex flex-col gap-3 bg-gray-100 min-h-screen p-5">
-        <Dashboard stats={stats} />
-        <TransactionHistory transactions={transactions} setTransactions={setTransactions}/>
-        <AddTransactionButton onClick={() => setIsFormOpen(true)} />
-      </main>
-      {isFormOpen &&
-        <Modal onClose={() => setIsFormOpen(false)}>
-          <AddTransactionForm addTransaction={addTransaction}/>
-        </Modal>
-      }
+      <BaseCurrencyProvider>
+        <Header/>
+        <main className="flex flex-col gap-3 bg-gray-100 min-h-screen p-5">
+          <Dashboard stats={stats}/>
+          <TransactionHistory transactions={transactions} setTransactions={setTransactions}/>
+          <AddTransactionButton onClick={() => setIsFormOpen(true)}/>
+        </main>
+        {isFormOpen &&
+          <Modal onClose={() => setIsFormOpen(false)}>
+            <AddTransactionForm addTransaction={addTransaction}/>
+          </Modal>
+        }
+      </BaseCurrencyProvider>
     </>
   )
 }

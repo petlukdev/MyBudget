@@ -8,7 +8,10 @@ import entertainmentLogo from "../assets/entertainment.svg";
 import shoppingLogo from "../assets/shopping.svg";
 import otherLogo from "../assets/other.svg";
 
+import { useContext } from "react";
 import { Category } from "../types/Category";
+import type { Currency } from "../types/Currency";
+import { BaseCurrencyContext } from "../contexts/CurrencyContext";
 import type { Transaction } from "../types/Transaction";
 
 const categoryIcons: Record<string, string> = {
@@ -24,6 +27,8 @@ const categoryIcons: Record<string, string> = {
 };
 
 function TransactionHistoryItem({ transaction, onClick }: { transaction: Transaction, onClick: () => void }) {
+    const currency : Currency = useContext(BaseCurrencyContext);
+    
     return (
         <li className="flex items-center gap-3 hover:bg-gray-100 p-1 rounded-lg cursor-pointer transition-colors" onClick={onClick}>
             <img src={categoryIcons[transaction.category]} alt={transaction.category} 
@@ -34,7 +39,7 @@ function TransactionHistoryItem({ transaction, onClick }: { transaction: Transac
             </div>
             <p className={`ml-auto font-bold text-nowrap
                 ${transaction.amount < 0 ? 'text-red-500' : 'text-green-500'}`}>
-                    {transaction.amount.toLocaleString()} CZK
+                    {transaction.amount.toLocaleString()} {currency}
             </p>
         </li>
     );

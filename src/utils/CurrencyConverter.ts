@@ -13,7 +13,7 @@ export class CurrencyConverter {
             this.base = lsBase;
         } else {
             switch (navigator.language) {
-                case "cs":
+                case "cs-CZ":
                     this.base = Currency.CZK;
                     break;
                 case "en-US":
@@ -32,9 +32,10 @@ export class CurrencyConverter {
         if (lsRates) {
             this.rates = JSON.parse(lsRates);
         }
-        
-        // Always tries to update rates
-        this.getRates();
+    }
+
+    public async initRates() {
+        await this.getRates();
     }
 
     public async getRates() {
