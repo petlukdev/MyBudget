@@ -33,7 +33,7 @@ export function CurrencyProvider({ children } : { children: React.ReactNode }) {
     setRates(r);
   };
 
-  const convert = async (
+  const convert = (
     amount: number,
     from: Currency,
     to: Currency

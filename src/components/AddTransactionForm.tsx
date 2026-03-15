@@ -1,10 +1,11 @@
 import { Category } from "../types/Category";
+import { Currency } from "../types/Currency";
 import { useCurrency } from "../hooks/useCurrency";
 
 import type { Transaction } from "../types/Transaction";
 
 function AddTransactionForm({ addTransaction }: { addTransaction: (transaction: Transaction) => void }) {
-    const { base } = useCurrency();
+    const { base, convert} = useCurrency();
     
     const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -12,7 +13,7 @@ function AddTransactionForm({ addTransaction }: { addTransaction: (transaction: 
         const transaction: Transaction = {
             id: Date.now().toString(),
             title: formData.get("title") as string,
-            amount: parseFloat(formData.get("amount") as string),
+            amount: convert(parseFloat(formData.get("amount") as string), base, Currency.EUR),
             date: new Date(formData.get("date") as string),
             category: formData.get("category") as Category,
             description: formData.get("description") as string

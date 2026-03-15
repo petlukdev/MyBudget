@@ -9,6 +9,7 @@ import shoppingLogo from "../assets/shopping.svg";
 import otherLogo from "../assets/other.svg";
 
 import { Category } from "../types/Category";
+import { Currency } from "../types/Currency";
 import { useCurrency } from "../hooks/useCurrency";
 import type { Transaction } from "../types/Transaction";
 
@@ -25,7 +26,9 @@ const categoryIcons: Record<string, string> = {
 };
 
 function TransactionHistoryItem({ transaction, onClick }: { transaction: Transaction, onClick: () => void }) {
-    const { base } = useCurrency();
+    const { base, convert } = useCurrency();
+
+    const value = convert(transaction.amount, Currency.EUR, base);
     
     return (
         <li className="flex items-center gap-3 hover:bg-gray-100 p-1 rounded-lg cursor-pointer transition-colors" onClick={onClick}>
@@ -36,8 +39,8 @@ function TransactionHistoryItem({ transaction, onClick }: { transaction: Transac
                 <p className="text-xs text-gray-500">{transaction.category}</p>
             </div>
             <p className={`ml-auto font-bold text-nowrap
-                ${transaction.amount < 0 ? 'text-red-500' : 'text-green-500'}`}>
-                    {transaction.amount.toLocaleString()} {base}
+                ${value < 0 ? 'text-red-500' : 'text-green-500'}`}>
+                    {value.toLocaleString()} {base}
             </p>
         </li>
     );

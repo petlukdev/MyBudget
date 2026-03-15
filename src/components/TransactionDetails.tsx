@@ -3,25 +3,41 @@ import trashLogo from "../assets/trash.svg";
 
 import { useEffect, useState } from "react";
 import { Category } from "../types/Category";
+import { Currency } from "../types/Currency";
 import { useCurrency } from "../hooks/useCurrency";
 
 import type { Transaction } from "../types/Transaction";
 
 function TransactionDetails({ transaction, onUpdate, onDelete, onClose }: { transaction: Transaction, onUpdate: (updatedTransaction: Transaction) => void, onDelete: (transaction: Transaction) => void, onClose?: () => void }) {
+    const { base, convert } = useCurrency();
+
     const [formData, setFormData] = useState(transaction);
-    const { base } = useCurrency();
+    const [uiAmount, setUiAmount] = useState(
+        convert(transaction.amount, Currency.EUR, base)
+    );
+
+    useEffect(() => {
+        setFormData(transaction);
+        setUiAmount(convert(transaction.amount, Currency.EUR, base));
+    }, [transaction, base]);
     
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
-        setFormData(prev => ({
-            ...prev,
-            [name]: name === 'amount' ? Number(value) : value
-        }));
+
+        if (name === 'amount') {
+            setUiAmount(Number(value));
+        } else {
+            setFormData(prev => ({
+                ...prev,
+                [name]: value
+            }));
+        }
     };
 
     const handleSubmit = (e: React.SubmitEvent) => {
         e.preventDefault();
-        onUpdate(formData);
+        const newAmount = convert(uiAmount, base, Currency.EUR);
+        onUpdate({ ...formData, amount: newAmount });
         onClose?.();
     }
 
@@ -29,10 +45,6 @@ function TransactionDetails({ transaction, onUpdate, onDelete, onClose }: { tran
         onDelete(formData);
         onClose?.();
     }
-
-    useEffect(() => {
-        setFormData(transaction);
-    }, [transaction]);
 
     return (
         <>
@@ -46,7 +58,7 @@ function TransactionDetails({ transaction, onUpdate, onDelete, onClose }: { tran
                 <div className="mb-4">
                     <label className="block text-sm font-medium text-gray-700 mb-1">Amount</label>
                     <div className="flex items-center gap-5">
-                        <input type="number" name="amount" step="10" value={formData.amount} onChange={handleChange} 
+                        <input type="number" name="amount" step="10" value={uiAmount} onChange={handleChange} 
                             className="w-full p-2 border border-gray-300 rounded"/>
                         <label>{base}</label>
                     </div>

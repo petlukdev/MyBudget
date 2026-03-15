@@ -1,7 +1,9 @@
+import { Currency } from "../types/Currency";
 import { useCurrency } from "../hooks/useCurrency";
 
 function DashboardCard({ title, value = 0 }: { title: string; value: number }) {
-    const { base } = useCurrency();
+    const { base, convert} = useCurrency();
+    value = convert(value, Currency.EUR, base);
     
     return (
         <div className="flex flex-col justify-center items-center 

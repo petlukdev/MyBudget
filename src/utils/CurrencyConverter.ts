@@ -54,7 +54,7 @@ export class CurrencyConverter {
         }
     }
 
-    public async convert(amount: number, from: Currency, to: Currency): Promise<number> {
+    public convert(amount: number, from: Currency, to: Currency): number {
         if (from === to) return amount;
         
         const fromRate = from === this.base ? 1 : this.rates[from];
