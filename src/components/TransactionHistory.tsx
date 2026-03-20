@@ -28,7 +28,7 @@ function TransactionHistory({ transactions, setTransactions }: { transactions: T
     }
     
     return (
-        <section className="bg-white shadow-lg rounded-lg p-4">
+        <section className="bg-white shadow-lg rounded-lg p-4 col-start-2 col-end-4 max-h-max">
             <h2 className="text-xl font-bold mb-4">Transaction History</h2>
             <div className="flex items-center gap-4 mb-4">
                 <p className="text-nowrap">Filter by category:</p>

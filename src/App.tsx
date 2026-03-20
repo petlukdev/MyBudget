@@ -5,10 +5,11 @@ import type { Transaction } from './types/Transaction'
 
 import Modal from './components/Modal'
 import Header from './components/Header'
+import Dashboard from './components/Dashboard'
 import TransactionHistory from './components/TransactionHistory'
 import AddTransactionForm from './components/AddTransactionForm'
 import AddTransactionButton from './components/AddTransactionButton'
-import Dashboard from './components/Dashboard'
+import AddTransactionContainer from './components/AddTransactionContainer'
 
 function App() {
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -37,9 +38,14 @@ function App() {
     <>
       <CurrencyProvider>
         <Header/>
-        <main className="flex flex-col gap-3 bg-gray-100 min-h-screen p-5">
-          <Dashboard stats={stats}/>
-          <TransactionHistory transactions={transactions} setTransactions={setTransactions}/>
+        <main className="flex flex-col gap-3 bg-gray-100 min-h-screen p-5 lg:grid lg:grid-rows-[auto_1fr] lg:gap-5">
+          <section className='lg:max-h-32'>
+            <Dashboard stats={stats}/>
+          </section>
+          <section className='lg:grid lg:grid-cols-3 lg:gap-4 lg:min-h-0'>
+            <AddTransactionContainer addTransaction={addTransaction}/>
+            <TransactionHistory transactions={transactions} setTransactions={setTransactions}/>
+          </section>
           <AddTransactionButton onClick={() => setIsFormOpen(true)}/>
         </main>
         {isFormOpen &&
