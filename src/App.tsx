@@ -38,14 +38,16 @@ function App() {
     <>
       <CurrencyProvider>
         <Header/>
-        <main className="flex flex-col gap-3 bg-gray-100 min-h-screen p-5 lg:grid lg:grid-rows-[auto_1fr] lg:gap-5">
-          <section className='lg:max-h-32'>
-            <Dashboard stats={stats}/>
-          </section>
-          <section className='lg:grid lg:grid-cols-3 lg:gap-4 lg:min-h-0'>
-            <AddTransactionContainer addTransaction={addTransaction}/>
-            <TransactionHistory transactions={transactions} setTransactions={setTransactions}/>
-          </section>
+        <main className="bg-gray-100 min-h-screen p-5">
+          <div className='flex flex-col gap-3 mx-auto lg:container lg:grid lg:grid-rows-[auto_1fr] lg:gap-5'>
+            <section className='lg:max-h-32'>
+              <Dashboard stats={stats}/>
+            </section>
+            <section className='lg:grid lg:grid-cols-3 lg:gap-4 lg:min-h-0'>
+              <AddTransactionContainer addTransaction={addTransaction}/>
+              <TransactionHistory transactions={transactions} setTransactions={setTransactions}/>
+            </section>
+          </div>
           <AddTransactionButton onClick={() => setIsFormOpen(true)}/>
         </main>
         {isFormOpen &&
