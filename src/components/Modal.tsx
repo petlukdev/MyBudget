@@ -7,6 +7,19 @@ function Modal({ children, onClose }: { children: React.ReactNode, onClose: () =
         setIsVisible(true);
     }, []);
 
+    // Blocks background scrolling
+    useEffect(() => {
+        if (isVisible) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "";
+        }
+
+        return () => {
+            document.body.style.overflow = "";
+        };
+    }, [isVisible]);
+
     const handleClose = () => {
         setIsVisible(false);
         setTimeout(onClose, 200);
