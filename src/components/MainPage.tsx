@@ -27,7 +27,10 @@ function MainPage() {
   }, [transactions]);
 
   const addTransaction = (transaction: Transaction) => {
-    setTransactions(prev => [transaction, ...prev]);
+    setTransactions(prev => {
+        const updated = [transaction, ...prev];
+        return updated.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    });
     setIsFormOpen(false);
   }
 
