@@ -2,10 +2,13 @@ import Modal from "./Modal";
 import LazyDummy from "./LazyDummy";
 import TransactionDetails from "./TransactionDetails";
 
+import importLogo from "../assets/import.svg";
+import exportLogo from "../assets/export.svg";
 import arrLeftLogo from "../assets/arrow-left.svg";
 import arrRightLogo from "../assets/arrow-right.svg";
 
 import { useState, useMemo, useEffect, lazy, Suspense } from "react";
+import { exportToJson, importFromJson } from "../utils/FileProvider";
 import { Category } from "../types/Category";
 import type { Transaction } from "../types/Transaction";
 
@@ -44,10 +47,39 @@ function TransactionHistory({ transactions, setTransactions }: { transactions: T
     const handleDelete = (transaction: Transaction) => {
         setTransactions(prev => prev.filter(t => t.id !== transaction.id));
     }
+
+    const handleImport = () => {
+        importFromJson().then(data => {
+            setTransactions(prev => {
+                const updated = [...data, ...prev];
+                const unique = updated.filter((t, index) => 
+                    updated.findIndex(other => other.id === t.id) === index
+                );
+                return unique.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+            });
+        }).catch(err => {
+            console.error(err.message);
+            alert('Failed to import transactions. Please make sure the file is a valid JSON with the correct structure.');
+        });
+    }
     
     return (
         <section className="bg-white shadow-lg rounded-lg p-4 col-start-2 col-end-4 max-h-max">
-            <h2 className="text-xl font-bold mb-4">Transaction History</h2>
+            <div className="flex flex-row items-center justify-between mb-4">
+                <h2 className="text-xl font-bold">Transaction History</h2>
+                <div className="flex flex-row gap-3 items-center">
+                    <button className="bg-blue-300 rounded-sm p-2 cursor-pointer hover:bg-blue-200 transition-colors duration-200"
+                    onClick={handleImport}
+                    title="Import JSON">
+                        <img src={importLogo} alt="Import" className="w-5 h-5"/>
+                    </button>
+                    <button className="bg-blue-300 rounded-sm p-2 cursor-pointer hover:bg-blue-200 transition-colors duration-200"
+                    onClick={() => exportToJson(transactions, 'transaction_history')}
+                    title="Export JSON">
+                        <img src={exportLogo} alt="Export" className="w-5 h-5"/>
+                    </button>
+                </div>
+            </div>
             <div className="flex flex-col items-stretch gap-4 mb-4 sm:flex-row">
                 <div className="grid grid-cols-2 items-center gap-4 w-full sm:flex">
                     <p className="text-nowrap">Filter by category:</p>
