@@ -5,10 +5,12 @@ import { CurrencyProvider } from './contexts/CurrencyContext'
 
 function App() {
   return (
-    <CurrencyProvider>
-      <Header/>
-      <MainPage/>
-    </CurrencyProvider>
+    <div className='min-h-screen flex flex-col'>
+      <CurrencyProvider>
+        <Header/>
+        <MainPage/>
+      </CurrencyProvider>
+    </div>
   )
 }
 

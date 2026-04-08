@@ -32,7 +32,7 @@ function MainPage() {
   }
 
   return (
-    <main className="bg-gray-100 min-h-screen p-5">
+    <main className="bg-gray-100 flex-1 p-5">
         <div className='flex flex-col gap-3 mx-auto lg:container lg:grid lg:grid-rows-[auto_1fr] lg:gap-5'>
             <section className='lg:max-h-32'>
                 <Dashboard stats={stats}/>
