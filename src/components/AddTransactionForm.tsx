@@ -5,7 +5,7 @@ import { useCurrency } from "../hooks/useCurrency";
 import type { Transaction } from "../types/Transaction";
 
 function AddTransactionForm({ addTransaction }: { addTransaction: (transaction: Transaction) => void }) {
-    const { base, convert} = useCurrency();
+    const { base, convert } = useCurrency();
     
     const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();

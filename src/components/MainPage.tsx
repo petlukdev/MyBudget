@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
+import { useState } from "react";
+import { useTransactions } from "../hooks/useTransactions";
 import type { Transaction } from "../types/Transaction";
 
 import Modal from "./Modal";
@@ -10,27 +11,10 @@ import AddTransactionContainer from "./AddTransactionContainer";
 
 function MainPage() {
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const [transactions, setTransactions] = useState<Transaction[]>(() => {
-    const stored = localStorage.getItem('transactions');
-    return stored ? JSON.parse(stored) : [];
-  });
+  const { transactions, setTransactions, stats, addTransaction } = useTransactions();
 
-  useEffect(() => {
-    localStorage.setItem('transactions', JSON.stringify(transactions));
-  }, [transactions]);
-
-  const stats = useMemo(() => {
-    const totalBalance = transactions.reduce((sum, t) => sum + t.amount, 0);
-    const income = transactions.filter(t => t.amount > 0).reduce((sum, t) => sum + t.amount, 0);
-    const expenses = transactions.filter(t => t.amount < 0).reduce((sum, t) => sum + t.amount, 0);
-    return { totalBalance, income, expenses };
-  }, [transactions]);
-
-  const addTransaction = (transaction: Transaction) => {
-    setTransactions(prev => {
-        const updated = [transaction, ...prev];
-        return updated.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-    });
+  const handleAddModal = (t : Transaction) => {
+    addTransaction(t);
     setIsFormOpen(false);
   }
 
@@ -48,7 +32,7 @@ function MainPage() {
         <AddTransactionButton onClick={() => setIsFormOpen(true)}/>
         {isFormOpen &&
             <Modal onClose={() => setIsFormOpen(false)}>
-                <AddTransactionForm addTransaction={addTransaction}/>
+                <AddTransactionForm addTransaction={handleAddModal}/>
             </Modal>
         }
     </main>
