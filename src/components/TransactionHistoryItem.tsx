@@ -31,21 +31,24 @@ function TransactionHistoryItem({ transaction, onClick }: { transaction: Transac
     const value = convert(transaction.amount, Currency.EUR, base);
     
     return (
-        <li className="grid grid-cols-2 sm:grid-cols-3 items-center gap-3 hover:bg-gray-100 p-1 rounded-lg cursor-pointer transition-colors" onClick={onClick}>
-            <div className="flex flex-row items-center gap-2">
-                <img src={categoryIcons[transaction.category]} alt={transaction.category} 
-                className="w-11 h-11 p-1 bg-gray-200 rounded-md" />
-                <div className="text-sm min-w-0">
-                    <p className="font-semibold truncate">{transaction.title}</p>
-                    <p className="text-xs text-gray-500">{transaction.category}</p>
+        <li>
+            <button aria-label={`Open transaction ${transaction.title}`}
+            className="w-full grid grid-cols-2 sm:grid-cols-3 items-center gap-3 hover:bg-gray-100 p-1 rounded-lg cursor-pointer transition-colors" onClick={onClick}>
+                <div className="flex flex-row items-center gap-2">
+                    <img src={categoryIcons[transaction.category]} alt={transaction.category} 
+                    className="w-11 h-11 p-1 bg-gray-200 rounded-md" />
+                    <div className="text-sm text-left min-w-0">
+                        <p className="font-semibold truncate">{transaction.title}</p>
+                        <p className="text-xs text-gray-500">{transaction.category}</p>
+                    </div>
                 </div>
-            </div>
-            <p className="hidden text-end text-gray-500 sm:block">
-                {new Date(transaction.date).toLocaleDateString()}
-            </p>
-            <p className={`grid-start-3 text-end font-bold text-nowrap ${value < 0 ? 'text-red-500' : 'text-green-500'}`}>
+                <p className="hidden text-end text-gray-500 sm:block">
+                    {new Date(transaction.date).toLocaleDateString()}
+                </p>
+                <p className={`grid-start-3 text-end font-bold text-nowrap ${value < 0 ? 'text-red-500' : 'text-green-500'}`}>
                     {value.toLocaleString()} {base}
-            </p>
+                </p>
+            </button>
         </li>
     );
 }

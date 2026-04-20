@@ -26,33 +26,57 @@ function AddTransactionForm({ addTransaction }: { addTransaction: (transaction: 
         <h2 className="text-xl font-bold mb-4">New Transaction</h2>
         <form className="space-y-4" onSubmit={handleSubmit}>
             <div>
-                <label className="block text-sm font-medium text-gray-700">Title</label>
-                <input required name="title" type="text" className="w-full p-2 border border-gray-300 rounded"/>
+                <label htmlFor="title-input" className="block text-sm font-medium text-gray-700">Title</label>
+                <input required
+                    name="title"
+                    type="text"
+                    id="title-input"
+                    placeholder="McDonalds"
+                    className="w-full p-2 border border-gray-300 rounded"/>
             </div>
             <div>
-                <label className="block text-sm font-medium text-gray-700">Amount (positive/negative)</label>
+                <label htmlFor="amount-input" className="block text-sm font-medium text-gray-700">Amount (positive/negative)</label>
                 <div className="flex items-center gap-5">
-                    <input required name="amount" type="number" className="w-full p-2 border border-gray-300 rounded"/>
+                    <input required
+                        name="amount"
+                        type="number"
+                        step="10"
+                        id="amount-input"
+                        placeholder="-67"
+                        className="w-full p-2 border border-gray-300 rounded"/>
                     <label>{base}</label>
                 </div>
             </div>
             <div>
-                <label className="block text-sm font-medium text-gray-700">Date</label>
-                <input required name="date" type="date" className="w-full p-2 border border-gray-300 rounded"/>
+                <label htmlFor="date-input" className="block text-sm font-medium text-gray-700">Date</label>
+                <input required
+                    id="date-input"
+                    name="date"
+                    type="date"
+                    className="w-full p-2 border border-gray-300 rounded"/>
             </div>
             <div>
-                <label className="block text-sm font-medium text-gray-700">Category</label>
-                <select required name="category" className="w-full p-2 border border-gray-300 rounded">
+                <label htmlFor="category-input" className="block text-sm font-medium text-gray-700">Category</label>
+                <select required
+                    id="category-input"
+                    name="category"
+                    className="w-full p-2 border border-gray-300 rounded">
                     {Object.values(Category).map((category) => (
                         <option key={category} value={category}>{category}</option>
                     ))}
                 </select>
             </div>
             <div>
-                <label className="block text-sm font-medium text-gray-700">Description</label>
-                <textarea name="description" className="w-full p-2 border border-gray-300 rounded"/>
+                <label htmlFor="description-input" className="block text-sm font-medium text-gray-700">Description</label>
+                <textarea name="description"
+                id="description-input"
+                placeholder="I got Big Mac McMenu with extra fries."
+                className="w-full p-2 border border-gray-300 rounded"/>
             </div>
-            <button type="submit" className="flex justify-self-end px-4 py-2 bg-blue-500 text-white rounded">Add Transaction</button>
+            <button type="submit"
+            className="flex justify-self-end px-4 py-2 bg-blue-300 font-semibold rounded cursor-pointer hover:bg-blue-200 transition-colors">
+                Add Transaction
+            </button>
         </form>
     </>
   );

@@ -51,21 +51,34 @@ function TransactionDetails({ transaction, onUpdate, onDelete, onClose }: { tran
             <h2 className="text-xl font-bold mb-4">Transaction Details</h2>
             <form onSubmit={handleSubmit}>
                 <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Title</label>
-                    <input type="text" name="title" value={formData.title} onChange={handleChange} 
+                    <label htmlFor="input-title" className="block text-sm font-medium text-gray-700 mb-1">Title</label>
+                    <input type="text"
+                        name="title"
+                        id="input-title"
+                        value={formData.title}
+                        onChange={handleChange} 
                         className="w-full p-2 border border-gray-300 rounded"/>
                 </div>
                 <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Amount</label>
+                    <label htmlFor="input-amount" className="block text-sm font-medium text-gray-700 mb-1">Amount</label>
                     <div className="flex items-center gap-5">
-                        <input type="number" name="amount" step="10" value={uiAmount} onChange={handleChange} 
+                        <input type="number"
+                            name="amount"
+                            step="10"
+                            id="input-amount"
+                            value={uiAmount}
+                            onChange={handleChange} 
                             className="w-full p-2 border border-gray-300 rounded"/>
                         <label>{base}</label>
                     </div>
                 </div>
                 <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
-                    <select name="category" value={formData.category} onChange={handleChange} className="w-full p-2 border border-gray-300 rounded">
+                    <label htmlFor="input-category" className="block text-sm font-medium text-gray-700 mb-1">Category</label>
+                    <select name="category"
+                        id="input-category"
+                        value={formData.category}
+                        onChange={handleChange}
+                        className="w-full p-2 border border-gray-300 rounded">
                         {Object.values(Category).map((category) => (
                             <option key={category} value={category}>
                                 {category}
@@ -74,19 +87,27 @@ function TransactionDetails({ transaction, onUpdate, onDelete, onClose }: { tran
                     </select>
                 </div>
                 <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Date</label>
-                    <input type="date" name="date" value={formData.date ? new Date(formData.date).toISOString().split('T')[0] : ''} 
-                        onChange={handleChange} className="w-full p-2 border border-gray-300 rounded"/>
+                    <label htmlFor="input-date" className="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                    <input type="date"
+                        name="date"
+                        id="input-date"
+                        value={formData.date ? new Date(formData.date).toISOString().split('T')[0] : ''} 
+                        onChange={handleChange}
+                        className="w-full p-2 border border-gray-300 rounded"/>
                 </div>
                 <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
-                    <textarea name="description" value={formData.description || ""} onChange={handleChange} className="w-full p-2 border border-gray-300 rounded"/>
+                    <label htmlFor="input-description" className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                    <textarea name="description"
+                        id="input-description"
+                        value={formData.description || ""}
+                        onChange={handleChange}
+                        className="w-full p-2 border border-gray-300 rounded"/>
                 </div>
                 <div className="flex gap-3 justify-end">
-                    <button type="submit" className="bg-blue-300/40 rounded p-2 hover:bg-blue-300/60 transition-colors">
+                    <button type="submit" className="bg-blue-300/40 rounded p-2 cursor-pointer hover:bg-blue-300/60 transition-colors">
                         <img src={penLogo} alt="Edit" className="w-7 h-7"/>
                     </button>
-                    <button type="button" className="bg-red-500/40 rounded p-2 hover:bg-red-500/60 transition-colors" onClick={handleDelete}>
+                    <button type="button" className="bg-red-500/40 rounded p-2 cursor-pointer hover:bg-red-500/60 transition-colors" onClick={handleDelete}>
                         <img src={trashLogo} alt="Delete" className="w-7 h-7"/>
                     </button>
                 </div>

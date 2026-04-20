@@ -13,7 +13,7 @@ function Header() {
       <div className="flex items-center justify-between py-3 mx-auto lg:container">
         <h1 className="text-2xl">My<b>Budget</b></h1>
         <select defaultValue={base} onChange={handleSetBase}
-        className="bg-white border border-gray-300 rounded p-1 focus:outline-none">
+        className="bg-white border border-gray-300 rounded p-1">
           {Object.values(Currency).map((currency) => (
             <option key={currency} value={currency}>{currency}</option>
           ))}
