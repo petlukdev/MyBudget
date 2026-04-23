@@ -3,6 +3,7 @@ import { useTransactions } from "../hooks/useTransactions";
 import type { Transaction } from "../types/Transaction";
 
 import Modal from "./Modal";
+import Charts from "./Charts";
 import Dashboard from "./Dashboard";
 import AddTransactionForm from "./AddTransactionForm";
 import TransactionHistory from "./TransactionHistory";
@@ -21,7 +22,8 @@ function MainPage() {
   return (
     <main className="bg-gray-100 flex-1 p-5">
         <div className='flex flex-col gap-3 mx-auto lg:container lg:grid lg:grid-rows-[auto_1fr] lg:gap-5'>
-            <section className='lg:max-h-32'>
+            <section>
+                <Charts/>
                 <Dashboard stats={stats}/>
             </section>
             <section className='lg:grid lg:grid-cols-3 lg:gap-4 lg:min-h-0'>
