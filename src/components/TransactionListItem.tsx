@@ -25,7 +25,7 @@ const categoryIcons: Record<string, string> = {
     [Category.OTHER]: otherLogo,
 };
 
-function TransactionHistoryItem({ transaction, onClick }: { transaction: Transaction, onClick: () => void }) {
+function TransactionListItem({ transaction, onClick }: { transaction: Transaction, onClick: () => void }) {
     const { base, convert } = useCurrency();
 
     const value = convert(transaction.amount, Currency.EUR, base);
@@ -53,4 +53,4 @@ function TransactionHistoryItem({ transaction, onClick }: { transaction: Transac
     );
 }
 
-export default TransactionHistoryItem;
+export default TransactionListItem;

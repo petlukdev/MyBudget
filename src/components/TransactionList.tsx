@@ -2,7 +2,7 @@ import { lazy, Suspense } from "react";
 import LazyDummy from "./LazyDummy";
 import type { Transaction } from "../types/Transaction";
 
-const TransactionHistoryItem = lazy(() => import('./TransactionHistoryItem'));
+const TransactionHistoryItem = lazy(() => import('./TransactionListItem'));
 
 interface TransactionListProps {
     transactions: Transaction[];
