@@ -40,7 +40,6 @@ function AddTransactionForm({ addTransaction }: { addTransaction: (transaction: 
                     <input required
                         name="amount"
                         type="number"
-                        step="10"
                         id="amount-input"
                         placeholder="-67"
                         className="w-full p-2 border border-gray-300 rounded"/>

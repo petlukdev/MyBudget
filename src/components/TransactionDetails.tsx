@@ -64,7 +64,6 @@ function TransactionDetails({ transaction, onUpdate, onDelete, onClose }: { tran
                     <div className="flex items-center gap-5">
                         <input type="number"
                             name="amount"
-                            step="10"
                             id="input-amount"
                             value={uiAmount}
                             onChange={handleChange} 
