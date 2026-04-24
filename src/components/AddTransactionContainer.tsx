@@ -1,8 +1,9 @@
-import { useTransactions } from "../hooks/useTransactions";
+import useTransactions from "../hooks/useTransactions";
 
 import AddTransactionForm from "./AddTransactionForm";
 
-function AddTransactionContainer() {
+export default function AddTransactionContainer() {
+    
     const { addTransaction } = useTransactions();
     
     return (
@@ -11,5 +12,3 @@ function AddTransactionContainer() {
         </aside>
     )
 }
-
-export default AddTransactionContainer;

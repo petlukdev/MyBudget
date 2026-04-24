@@ -4,7 +4,7 @@ import MainPage from './components/MainPage'
 import { CurrencyProvider } from './contexts/CurrencyContext'
 import { TransactionsProvider } from './contexts/TransactionsContext'
 
-function App() {
+export default function App() {
   return (
     <div className='min-h-screen flex flex-col'>
       <CurrencyProvider>
@@ -16,5 +16,3 @@ function App() {
     </div>
   )
 }
-
-export default App

@@ -1,6 +1,12 @@
 import { useEffect, useState, useRef, cloneElement, isValidElement } from "react";
 
-function Modal({ children, onClose }: { children: React.ReactNode, onClose: () => void }) {
+interface ModalProps {
+    children: React.ReactNode;
+    onClose: () => void;
+}
+
+export default function Modal({ children, onClose }: ModalProps) {
+    
     const [isVisible, setIsVisible] = useState(false);
     
     const modalRef = useRef<HTMLDivElement>(null);
@@ -72,15 +78,13 @@ function Modal({ children, onClose }: { children: React.ReactNode, onClose: () =
                 role="dialog"
                 aria-modal="true"
                 onClick={(e) => e.stopPropagation()}>
-                <button className="absolute top-3 right-3 text-xl cursor-pointer text-gray-500 hover:text-gray-700" onClick={handleClose}>
-                    ⨉
-                </button>
-                {isValidElement(children) 
-                    ? cloneElement(children as React.ReactElement<any>, { onClose: handleClose }) 
-                    : children}
+                    <button className="absolute top-3 right-3 text-xl cursor-pointer text-gray-500 hover:text-gray-700" onClick={handleClose}>
+                        ⨉
+                    </button>
+                    {isValidElement(children) 
+                        ? cloneElement(children as React.ReactElement<any>, { onClose: handleClose }) 
+                        : children}
             </div>
         </div>
     );
 }
-
-export default Modal;

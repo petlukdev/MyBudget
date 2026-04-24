@@ -1,8 +1,9 @@
-import { useTransactions } from '../hooks/useTransactions';
+import useTransactions from '../hooks/useTransactions';
 
 import DashboardCard from './DashboardCard';
 
-function Dashboard() {
+export default function Dashboard() {
+  
   const { stats } = useTransactions();
 
   return (
@@ -13,5 +14,3 @@ function Dashboard() {
     </section>
   );
 }
-
-export default Dashboard;

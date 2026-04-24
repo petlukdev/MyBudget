@@ -13,15 +13,15 @@ import type {
 } from 'chart.js';
 import { Bar } from "react-chartjs-2";
 import { Currency } from '../types/Currency';
-import { useCurrency } from '../hooks/useCurrency';
-import { useTransactions } from '../hooks/useTransactions';
+import useCurrency from '../hooks/useCurrency';
+import useTransactions from '../hooks/useTransactions';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const MONTHS_SHORT = MONTHS.map(month => month.slice(0, 3));
 
-function AnnualChart() {
+export default function AnnualChart() {
 
     const { transactions } = useTransactions();
     const { base, convert } = useCurrency();
@@ -99,5 +99,3 @@ function AnnualChart() {
         </div>
     );
 }
-
-export default AnnualChart;

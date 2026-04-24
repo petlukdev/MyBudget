@@ -16,12 +16,12 @@ export default function TransactionControls({ filter, setFilter, perPage, setPer
                     className="bg-white border border-gray-300 rounded w-full p-1"
                     value={filter}
                     onChange={(e) => setFilter(e.target.value)}>
-                    <option value="">All Categories</option>
-                    {Object.values(Category).map((category) => (
-                        <option key={category} value={category}>
-                            {category}
-                        </option>
-                    ))}
+                        <option value="">All Categories</option>
+                        {Object.values(Category).map((category) => (
+                            <option key={category} value={category}>
+                                {category}
+                            </option>
+                        ))}
                 </select>
             </div>
             <div className="hidden w-px bg-gray-300 mx-2 sm:block"></div>
@@ -31,9 +31,9 @@ export default function TransactionControls({ filter, setFilter, perPage, setPer
                     className="bg-white border border-gray-300 rounded w-full p-1"
                     value={perPage}
                     onChange={(e) => setPerPage(Number(e.target.value))}>
-                    <option value="10">10</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
+                        <option value="10">10</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
                 </select>
             </div>
         </div>

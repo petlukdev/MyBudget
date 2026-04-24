@@ -16,13 +16,13 @@ export default function Pagination({ page, totalPages, onPageChange, isHidden = 
             <button className="cursor-pointer hover:opacity-70 disabled:opacity-30 disabled:cursor-not-allowed"
                 disabled={page === 1}
                 onClick={() => onPageChange((p) => p - 1)}>
-                <img src={arrLeftLogo} alt="Previous" className="w-7 h-7"/>
+                    <img src={arrLeftLogo} alt="Previous" className="w-7 h-7"/>
             </button>
             <span className="select-none">{page} / {totalPages || 1}</span>
             <button className="cursor-pointer hover:opacity-70 disabled:opacity-30 disabled:cursor-not-allowed"
                 disabled={page === totalPages || totalPages === 0}
                 onClick={() => onPageChange((p) => p + 1)}>
-                <img src={arrRightLogo} alt="Next" className="w-7 h-7"/>
+                    <img src={arrRightLogo} alt="Next" className="w-7 h-7"/>
             </button>
         </div>
     );

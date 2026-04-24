@@ -1,4 +1,4 @@
-function LazyDummy() {
+export default function LazyDummy() {
     return (
         <li className="flex items-center gap-3 p-1 rounded-lg animate-pulse">
             <div className="w-11 h-11 p-1 bg-gray-200 rounded-md" />
@@ -10,5 +10,3 @@ function LazyDummy() {
         </li>
     )
 }
-
-export default LazyDummy;

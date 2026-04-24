@@ -10,12 +10,12 @@ import type {
 } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 import { Currency } from '../types/Currency';
-import { useCurrency } from '../hooks/useCurrency';
-import { useTransactions } from '../hooks/useTransactions';
+import useCurrency from '../hooks/useCurrency';
+import useTransactions from '../hooks/useTransactions';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-function StatsChart() {
+export default function StatsChart() {
 
     const { stats } = useTransactions();
     const { base, convert } = useCurrency();
@@ -73,5 +73,3 @@ function StatsChart() {
         </div>
     );
 }
-
-export default StatsChart;

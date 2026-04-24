@@ -1,13 +1,13 @@
+import CurrencyConverter from "../utils/CurrencyConverter";
 import { useState, useEffect, useRef, createContext } from "react";
-import { CurrencyConverter } from "../utils/CurrencyConverter";
 
 import type { Currency } from "../types/Currency";
 
 export type CurrencyContextType = {
-    base: Currency,
-    rates: Record<string, number>,
-    setBase: (base: Currency) => Promise<void>,
-    convert: (amount: number, from: Currency, to: Currency) => number
+  base: Currency,
+  rates: Record<string, number>,
+  setBase: (base: Currency) => Promise<void>,
+  convert: (amount: number, from: Currency, to: Currency) => number
 }
 
 export const CurrencyContext = createContext<CurrencyContextType | null>(null);

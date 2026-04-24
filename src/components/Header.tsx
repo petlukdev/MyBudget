@@ -1,7 +1,8 @@
 import { Currency } from "../types/Currency";
-import { useCurrency } from "../hooks/useCurrency";
+import useCurrency from "../hooks/useCurrency";
 
-function Header() {
+export default function Header() {
+  
   const { base, setBase } = useCurrency();
 
   const handleSetBase = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -25,5 +26,3 @@ function Header() {
     </header>
   );
 }
-
-export default Header;

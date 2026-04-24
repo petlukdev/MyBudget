@@ -10,6 +10,7 @@ interface TransactionListProps {
 }
 
 export default function TransactionList({ transactions, onItemClick }: TransactionListProps) {
+    
     if (transactions.length === 0) {
         return <p className="text-center text-gray-500 my-4">No transactions found.</p>;
     }

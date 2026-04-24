@@ -10,7 +10,7 @@ import otherLogo from "../assets/other.svg";
 
 import { Category } from "../types/Category";
 import { Currency } from "../types/Currency";
-import { useCurrency } from "../hooks/useCurrency";
+import useCurrency from "../hooks/useCurrency";
 import type { Transaction } from "../types/Transaction";
 
 const categoryIcons: Record<string, string> = {
@@ -25,7 +25,13 @@ const categoryIcons: Record<string, string> = {
     [Category.OTHER]: otherLogo,
 };
 
-function TransactionListItem({ transaction, onClick }: { transaction: Transaction, onClick: () => void }) {
+interface TransactionListItemProps {
+    transaction: Transaction;
+    onClick: () => void;
+}
+
+export default function TransactionListItem({ transaction, onClick } : TransactionListItemProps) {
+    
     const { base, convert } = useCurrency();
 
     const value = convert(transaction.amount, Currency.EUR, base);
@@ -52,5 +58,3 @@ function TransactionListItem({ transaction, onClick }: { transaction: Transactio
         </li>
     );
 }
-
-export default TransactionListItem;

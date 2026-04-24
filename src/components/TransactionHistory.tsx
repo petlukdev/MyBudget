@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from "react";
-import { useTransactions } from "../hooks/useTransactions";
+import useTransactions from "../hooks/useTransactions";
 import { exportToJson, importFromJson } from "../utils/FileProvider";
 
 import type { Transaction } from "../types/Transaction";
@@ -11,7 +11,8 @@ import TransactionControls from "./TransactionControls";
 import TransactionList from "./TransactionList";
 import Pagination from "./Pagination";
 
-function TransactionHistory() {
+export default function TransactionHistory() {
+    
     const [selectedItem, setSelectedItem] = useState<Transaction | null>(null);
     const [filter, setFilter] = useState('');
     const [page, setPage] = useState(1);
@@ -85,5 +86,3 @@ function TransactionHistory() {
         </section>
     );
 }
-
-export default TransactionHistory;

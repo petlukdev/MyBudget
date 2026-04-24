@@ -1,6 +1,6 @@
 import { Currency } from "../types/Currency";
 
-export class CurrencyConverter {
+export default class CurrencyConverter {
     
     private base: Currency = Currency.EUR;
     private rates: Record<string, number> = {};

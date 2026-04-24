@@ -1,10 +1,11 @@
 import { Category } from "../types/Category";
 import { Currency } from "../types/Currency";
-import { useCurrency } from "../hooks/useCurrency";
+import useCurrency from "../hooks/useCurrency";
 
 import type { Transaction } from "../types/Transaction";
 
-function AddTransactionForm({ addTransaction }: { addTransaction: (transaction: Transaction) => void }) {
+export default function AddTransactionForm({ addTransaction }: { addTransaction: (transaction: Transaction) => void }) {
+    
     const { base, convert } = useCurrency();
     
     const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
@@ -60,9 +61,9 @@ function AddTransactionForm({ addTransaction }: { addTransaction: (transaction: 
                     id="category-input"
                     name="category"
                     className="w-full p-2 border border-gray-300 rounded">
-                    {Object.values(Category).map((category) => (
-                        <option key={category} value={category}>{category}</option>
-                    ))}
+                        {Object.values(Category).map((category) => (
+                            <option key={category} value={category}>{category}</option>
+                        ))}
                 </select>
             </div>
             <div>
@@ -80,5 +81,3 @@ function AddTransactionForm({ addTransaction }: { addTransaction: (transaction: 
     </>
   );
 }
-
-export default AddTransactionForm;
