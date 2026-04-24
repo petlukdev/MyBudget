@@ -23,14 +23,14 @@ export default function MainPage() {
     return (
         <main className="bg-gray-100 flex-1 p-5">
             <div className='flex flex-col gap-3 mx-auto lg:container lg:grid lg:grid-rows-[auto_1fr] lg:gap-5'>
-                <section>
+                <div>
                     <Dashboard/>
                     <Charts/>
-                </section>
-                <section className='lg:grid lg:grid-cols-3 lg:gap-4 lg:min-h-0'>
+                </div>
+                <div className='lg:grid lg:grid-cols-3 lg:gap-4 lg:min-h-0'>
                     <AddTransactionContainer/>
                     <TransactionHistory/>
-                </section>
+                </div>
             </div>
             <AddTransactionButton onClick={() => setIsFormOpen(true)}/>
             {isFormOpen &&
