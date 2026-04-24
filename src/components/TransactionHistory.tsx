@@ -1,5 +1,7 @@
 import { useState, useMemo, useEffect } from "react";
+import { useTransactions } from "../hooks/useTransactions";
 import { exportToJson, importFromJson } from "../utils/FileProvider";
+
 import type { Transaction } from "../types/Transaction";
 
 import Modal from "./Modal";
@@ -9,16 +11,13 @@ import TransactionControls from "./TransactionControls";
 import TransactionList from "./TransactionList";
 import Pagination from "./Pagination";
 
-interface TransactionHistoryProps {
-    transactions: Transaction[];
-    setTransactions: React.Dispatch<React.SetStateAction<Transaction[]>>;
-}
-
-function TransactionHistory({ transactions, setTransactions }: TransactionHistoryProps) {
+function TransactionHistory() {
     const [selectedItem, setSelectedItem] = useState<Transaction | null>(null);
     const [filter, setFilter] = useState('');
     const [page, setPage] = useState(1);
     const [perPage, setPerPage] = useState(10);
+
+    const { transactions, setTransactions } = useTransactions();
 
     const filteredTransactions = filter === '' 
         ? transactions 
