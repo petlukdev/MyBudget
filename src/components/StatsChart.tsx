@@ -57,7 +57,7 @@ function StatsChart() {
                 callbacks: {
                     label: (context) => {
                         const value = context.raw as number;
-                        return `${context.label}: ${value.toLocaleString()} ${base}`;
+                        return `${value.toLocaleString()} ${base}`;
                     }
                 }
             }

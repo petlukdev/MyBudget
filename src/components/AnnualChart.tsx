@@ -18,20 +18,13 @@ import { useTransactions } from '../hooks/useTransactions';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const MONTHS_SHORT = MONTHS.map(month => month.slice(0, 3));
+
 function AnnualChart() {
 
     const { transactions } = useTransactions();
     const { base, convert } = useCurrency();
-
-    /*const monthlyData = transactions.reduce((acc, transaction) => {
-        const month = new Date(transaction.date).getMonth();
-        const amount = convert(transaction.amount, Currency.EUR, base);
-        acc[month] = (acc[month] || 0) + amount;
-        return acc;
-    }, new Array(12).fill(0));
-
-    const incomeData = monthlyData.map(value => value > 0 ? value : 0);
-    const expensesData = monthlyData.map(value => value < 0 ? Math.abs(value) : 0);*/
 
     const monthlyIncome = new Array(12).fill(0);
     const monthlyExpenses = new Array(12).fill(0);
@@ -52,7 +45,7 @@ function AnnualChart() {
     });
 
     const data: ChartData<'bar'> = {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        labels: MONTHS_SHORT,
         datasets: [
             {
                 label: 'Income',
@@ -85,10 +78,13 @@ function AnnualChart() {
                 text: 'Income and expenses for this year'
             },
             tooltip: {
-                 callbacks: {
+                callbacks: {
+                    title: (context) => {
+                        return MONTHS[context[0].dataIndex];
+                    },
                     label: (context) => {
                         const value = context.raw as number;
-                        return `${context.label}: ${value.toLocaleString()} ${base}`;
+                        return `${context.dataset.label}: ${value.toLocaleString()} ${base}`;
                     }
                 }
             }
