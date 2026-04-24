@@ -5,7 +5,7 @@ import {
   BarElement,
   Title,
   Tooltip,
-  Legend,
+  Legend
 } from 'chart.js';
 import type {
   ChartData,
@@ -23,7 +23,7 @@ function AnnualChart() {
     const { transactions } = useTransactions();
     const { base, convert } = useCurrency();
 
-    const monthlyData = transactions.reduce((acc, transaction) => {
+    /*const monthlyData = transactions.reduce((acc, transaction) => {
         const month = new Date(transaction.date).getMonth();
         const amount = convert(transaction.amount, Currency.EUR, base);
         acc[month] = (acc[month] || 0) + amount;
@@ -31,24 +31,44 @@ function AnnualChart() {
     }, new Array(12).fill(0));
 
     const incomeData = monthlyData.map(value => value > 0 ? value : 0);
-    const expensesData = monthlyData.map(value => value < 0 ? Math.abs(value) : 0);
+    const expensesData = monthlyData.map(value => value < 0 ? Math.abs(value) : 0);*/
+
+    const monthlyIncome = new Array(12).fill(0);
+    const monthlyExpenses = new Array(12).fill(0);
+    const currentYear = new Date().getFullYear();
+
+    transactions.forEach(transaction => {
+        const date = new Date(transaction.date);
+        if (date.getFullYear() !== currentYear) return;
+
+        const monthIndex = date.getMonth();
+        const amount = convert(transaction.amount, Currency.EUR, base);
+
+        if (amount > 0) {
+            monthlyIncome[monthIndex] += amount;
+        } else {
+            monthlyExpenses[monthIndex] += Math.abs(amount);
+        } 
+    });
 
     const data: ChartData<'bar'> = {
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
         datasets: [
             {
                 label: 'Income',
-                data: incomeData,
+                data: monthlyIncome,
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1
+                borderWidth: 1,
+                minBarLength: 5
             },
             {
                 label: 'Expenses',
-                data: expensesData,
+                data: monthlyExpenses,
                 backgroundColor: 'rgba(255, 99, 132, 0.2)',
                 borderColor: 'rgba(255, 99, 132, 1)',
-                borderWidth: 1
+                borderWidth: 1,
+                minBarLength: 5
             }
         ]
     };
@@ -62,7 +82,7 @@ function AnnualChart() {
             },
             title: {
                 display: true,
-                text: 'Annual Income and Expenses'
+                text: 'Income and expenses for this year'
             },
             tooltip: {
                  callbacks: {
@@ -76,7 +96,7 @@ function AnnualChart() {
     };
 
     return (
-        <div className='w-full max-w-xl lg:flex-1'>
+        <div className='w-full min-w-0 bg-white border border-gray-100 rounded-xl shadow-sm p-4'>
             <div className='relative w-full h-80'>
                 <Bar data={data} options={options}/>
             </div>

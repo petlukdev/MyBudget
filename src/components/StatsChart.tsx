@@ -66,7 +66,7 @@ function StatsChart() {
     };
 
     return (
-        <div className='w-full max-w-xl lg:flex-1'>
+        <div className='w-full min-w-0 bg-white border border-gray-100 rounded-xl shadow-sm p-4'>
             <div className='relative w-full h-80'>
                 <Doughnut data={data} options={options} />
             </div>

@@ -23,8 +23,8 @@ function MainPage() {
     <main className="bg-gray-100 flex-1 p-5">
         <div className='flex flex-col gap-3 mx-auto lg:container lg:grid lg:grid-rows-[auto_1fr] lg:gap-5'>
             <section>
-                <Charts/>
                 <Dashboard stats={stats}/>
+                <Charts/>
             </section>
             <section className='lg:grid lg:grid-cols-3 lg:gap-4 lg:min-h-0'>
                 <AddTransactionContainer addTransaction={addTransaction}/>

@@ -3,7 +3,7 @@ import StatsChart from "./StatsChart";
 
 function Charts() {
   return (
-    <div className="flex flex-col justify-center items-center w-full mb-4 gap-4 lg:flex-row lg:items-stretch">
+    <div className="grid grid-cols-1 w-full gap-4 mt-5 lg:grid-cols-2">
       <StatsChart />
       <AnnualChart />
     </div>
